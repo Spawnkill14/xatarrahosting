@@ -93,3 +93,6 @@ Com que el projecte es basa en la reutilització, la inversió es concentra en l
 2. [ ] **Clúster Proxmox:** Connectar els nodes secundaris i muntar l'emmagatzematge remot.
 3. [ ] **Desenvolupament IA:** Script de monitoratge de logs i connexió amb l'API d'Ollama.
 4. [ ] **Proves d'Estrès:** Simular caigudes de xarxa i talls elèctrics per validar l'autoreparació.
+
+* [Configuració de la Cabina de Dades (XigmaNAS)](XigmaNAS.md)
+* [Configuració del Clúster de Computació (Proxmox)](PROXMOX.md)
