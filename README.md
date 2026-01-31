@@ -1,4 +1,7 @@
 # XatarraHosting | El teu hosting amb xatarra de confiança.
+Projecte de creació d'una infraestructura de hosting web professional utilitzant maquinari reciclat, energia solar i intel·ligència artificial local.
+---
+
 ## Context: 
 #### El projecte “XataraHosting”  amb l’objectiu de donar una segona vida a ordinadors antics que actualment no tenen ús, transformant-los en servidors capaços d’oferir allotjament web de petit i mitjà format. A diferència de les empreses de hosting tradicionals, XataraHosting busca aprofitar maquinari ja existent per reduir residus electrònics i demostrar que és possible crear una infraestructura funcional, econòmica i sostenible. Actualment, gran part dels ordinadors desfasats continuen sent plenament útils per a tasques d’allotjament si es gestionen correctament. L’objectiu és crear un sistema de servidors basat en Linux i virtualització amb Proxmox, capaç d’allotjar pàgines web i serveis bàsics d’una manera eficient i escalable.
 
@@ -12,11 +15,6 @@
 #### Desenvolupar una pàgina web principal del projecte amb informació, accés a Patreon i sistema d’alta de nous usuaris.
 #### Oferir als patreons un domini gratuït i publicitat dins del nostre ecosistema com a forma d’incentiu.
 #### Aplicar mesures de seguretat bàsiques (firewall, còpies de seguretat, restricció d’accés remot).
- 
----
-# XatarraHosting: Reutilització i Sostenibilitat
-
-Projecte de creació d'una infraestructura de hosting web professional utilitzant maquinari reciclat, energia solar i intel·ligència artificial local.
 
 ---
 
