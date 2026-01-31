@@ -56,8 +56,40 @@ El projecte es basa en l'eficiència i el respecte pel medi ambient:
 
 ## Tecnologies Utilitzades
 
-* **Virtualització:** Proxmox VE
-* **Emmagatzematge:** XigmaNAS (ZFS + NFS)
-* **Llenguatges:** Python
-* **Intel·ligència Artificial:** Ollama (Llama/Phi models)
-* **Xarxa:** ZeroTier & Nginx Proxy Manager
+| Capa | Tecnologia |
+| :--- | :--- |
+| **Virtualització** | Proxmox VE (Clúster) |
+| **Emmagatzematge** | XigmaNAS (ZFS + NFS Share) |
+| **Seguretat/IA** | Python 3.x + Ollama |
+| **Networking** | Nginx Proxy Manager + ZeroTier |
+| **Energia** | Kit Solar 12V/24V + SAI Intel·ligent |
+
+---
+
+## Pressupost i Materials 
+
+Com que el projecte es basa en la reutilització, la inversió es concentra en la fiabilitat de la xarxa i la seguretat elèctrica.
+
+### Hardware de Xarxa i Protecció
+* **Switch:** Gigabit Ethernet (8 ports) per garantir la fluïdesa del protocol NFS.
+* **SAI (UPS):** Sistema d'alimentació ininterrompuda per gestionar l'apagat segur via IA en cas de fallada solar.
+* **Emmagatzematge d'arrencada:** SSDs de baixa capacitat (32GB-64GB) per a cada node del clúster.
+
+### Estimació de Costos (Butxaca pròpia mentre no hi han clients)
+| Concepte | Prioritat | Preu aprox. |
+| :--- | :---: | :---: |
+| SSDs per a Nodes Secundaris | Alta | 10 €/u |
+| Switch Gigabit | Alta | 20 € |
+| Cables Cat6 | Alta | 15 € |
+| SAI (Protecció ZFS) | Crítica | 65 € |
+| **Inversió Inicial Total** | | **~120 €** |
+
+
+---
+
+## Propers Passos (Milestones)
+
+1. [ ] **Setup XigmaNAS:** Configurar el RAID-Z i exportar el recurs NFS.
+2. [ ] **Clúster Proxmox:** Connectar els nodes secundaris i muntar l'emmagatzematge remot.
+3. [ ] **Desenvolupament IA:** Script de monitoratge de logs i connexió amb l'API d'Ollama.
+4. [ ] **Proves d'Estrès:** Simular caigudes de xarxa i talls elèctrics per validar l'autoreparació.
