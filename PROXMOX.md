@@ -1,4 +1,4 @@
-# 💻 Configuració Integral: Proxmox VE (Compute Cluster)
+# Configuració Integral: Proxmox VE (Compute Cluster)
 
 Aquest document detalla com convertir els PCs de xatarra en un clúster d'alta disponibilitat.
 
