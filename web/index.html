@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- Declaración del tipo de documento HTML5 -->
+<html lang="ca">
+<!-- Inicio del documento HTML, idioma catalán -->
+<head>
+    <!-- Metadatos y configuración de la página -->
+    <meta charset="UTF-8">
+    <!-- Codificación de caracteres UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configuración de viewport para dispositivos móviles -->
+    <title>XatarraHosting | Sostenibilitat i Control</title>
+    <!-- Título de la página -->
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+    <!-- Barra de navegación -->
+	<nav class="">
+    		<!-- Logo de la aplicación -->
+    		<div class="logo">XATARRA<span style="color: #00d2ff;">HOSTING</span></div>
+    
+    		<div class="nav-right-container">
+        		<!-- Enlaces de navegación -->
+        		<div class="nav-links" style="position: relative; height: 21px;">
+            		<a href="index.html" style="color: #00d2ff; font-weight: bold;"><b class="">Inici</b></a>
+                    <a href="serveis.html" class=""><b>Serveis</b></a>
+                    <a href="explorador.html" class=""><b>Explorador</b></a>
+            		<a href="statistic.html" class=""><b>Estadístiques</b></a>
+            		<a href="dashboard.html" class="" style=""><b>Dashboard</b></a>
+        		</div>
+
+        		<!-- Panel de sesión en la navegación (oculto por defecto) -->
+        		<div id="session-panel" class="glass-card session-card session-card-nav" style="display: none;">
+            			<h3>Sessi  Activa</h3>
+            			<span class="user-name">Hola, <span id="display-user" style="color: #a371f7; font-weight: bold;">Usuari</span></span>
+            			<div style="display: flex; gap: 8px; justify-content: flex-start; margin-top: 5px;">
+                			<button onclick="logout()" class="btn btn-outline">Sortir</button>
+                			<a href="dashboard.html" class="btn btn-purple">Panell</a>
+            			</div>
+        		</div>
+   	 </div>
+	</nav>
+
+    <!-- Sección principal del hero -->
+    <div class="container">
+        <div class="hero-content">
+            <!-- Título y descripción principal -->
+            <h1 class="">Infraestructura sostenible. Control total.</h1>
+            <p class="">XatarraHosting ofereix hosting a partir de hardware recuperat amb gestió basada en Proxmox. Organitza i desplega recursos amb una interfície senzilla i segura.</p>
+            
+            <!-- Acciones del hero: vista para usuarios no logueados -->
+            <div id="hero-actions">
+    			<div id="logged-out-view" class="">
+        			<a href="dashboard.html" class="btn btn-purple">Anar al Dashboard</a>
+				<a href="login.html" id="btn-login" class="btn btn-outline">Inicia sessió</a>
+			</div>
+
+    			<!-- Panel de sesión en el hero (oculto por defecto) -->
+    			<div id="session-panel" class="glass-card session-card" style="display: none;">
+        			<h3>Sessió Activa</h3>
+        			<span class="user-name">Hola, <span id="display-user" style="color: #a371f7; font-weight: bold;">Usuari</span></span>
+        				<div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+            				<button onclick="logout()" class="btn btn-outline">Tancar sessió</button>
+            				<a href="dashboard.html" class="btn btn-purple">Dashboard</a>
+        				</div>
+    			</div>
+			</div>
+        </div>
+
+        <!-- Nota: Aquí falta cerrar la div .hero-content, pero en el código original parece estar cerrado después -->
+    </div>
+
+    <!-- Grid de características -->
+    <div class="features-grid" style="">
+        <!-- Característica 1: Sostenibilidad -->
+        <div class="glass-card feature-item">
+            <h3 class="">🌱 Sostenibilitat</h3>
+            <p class="">Hardware 100% recuperat de centres educatius i empreses, reduint l'empremta de carboni digital.</p>
+        </div>
+        <!-- Característica 2: Rendimiento -->
+        <div class="glass-card feature-item">
+            <h3>⚡ Rendiment</h3>
+            <p>Virtualització eficient amb contenidors LXC sobre Proxmox per a una mínima latència.</p>
+        </div>
+        <!-- Característica 3: Gestión -->
+        <div class="glass-card feature-item">
+            <h3 class="">🛠️ Gestió</h3>
+            <p class="">Interfície simplificada per gestionar el teu servidor de Minecraft o la teva web en segons.</p>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="">
+        XatarraHosting v26.9.3
+    </footer>
+    
+    <!-- Script de autenticación -->
+    <script src="auth.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - XatarraHosting</title>
+<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-grid { display: grid; gap: 20px; padding: 20px; }
+        .wizard-overlay {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 1000;
+        }
+        .wizard-card {
+            background: var(--card-bg); max-width: 500px; margin: 50px auto;
+            padding: 30px; border-radius: 20px; border: 1px solid var(--accent-purple);
+        }
+        .form-group { margin-bottom: 15px; }
+        select, input { width: 100%; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: white; border-radius: 8px; }
+        
+        /* INFO CARD - SERVIDOR LIMIT */
+        .limit-info-card {
+            background: linear-gradient(135deg, rgba(125, 95, 255, 0.1), rgba(179, 55, 113, 0.1));
+            border: 1px solid rgba(125, 95, 255, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .limit-info-card .icon { font-size: 2rem; }
+        .limit-info-card .info h3 { margin: 0; color: #b33771; font-size: 1rem; }
+        .limit-info-card .info p { margin: 5px 0 0 0; color: #aaa; font-size: 0.9rem; }
+    </style>
+        
+    </head>
+<script>
+    // Bloqueig de seguretat immediat
+    if (!localStorage.getItem('github_user')) {
+        alert("Accés denegat. Has d'iniciar sessió.");
+        window.location.href = "index.html";
+    }
+</script>
+<body>
+      <nav class="">
+    		<div class="logo">XATARRA<span style="color: #00d2ff;">HOSTING</span></div>
+    
+    		<div class="nav-right-container">
+        		<div class="nav-links" style="position: relative; height: 21px;">
+            		<a href="index.html"><b>Inici</b></a>
+                    <a href="serveis.html"><b>Serveis</b></a>
+                    <a href="explorador.html"><b>Explorador</b></a>
+            		<a href="statistic.html"><b>Estadístiques</b></a>
+            		<a href="dashboard.html" style="color: #00d2ff; font-weight: bold;"><b>Dashboard</b></a>
+        		</div>
+
+        	<div id="session-panel" class="glass-card session-card session-card-nav" style="display: none; background: rgba(17, 25, 40, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 30px; transition: 0.3s;">
+            		<h3>Sessi  Activa</h3>
+            		<span class="user-name">Hola, <span id="display-user" style="color: #a371f7; font-weight: bold;">Usuari</span></span>
+        	</div>
+   	 </div>
+	</nav>
+    <div class="container">
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>El meu panell</h1>
+        </header>
+
+        <!-- INFO LIMIT CD SERVIDOR -->
+        <div class="limit-info-card" id="limit-info-card">
+            <div class="icon">📊</div>
+            <div class="info">
+                <h3>Plan Gratuït: 1 Servidor</h3>
+                <p>Actualment tens <span id="servidor-count">0</span>/1 servidor actiu. Els servidors addicionals es desbloquejaran comprant un plan de pagament (encara no estan actius).</p>
+            </div>
+        </div>
+
+        <div id="setup-minecraft" style="display: none; background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #7d5fff; margin-top: 20px; color: white;">
+            <h2 style="color: #7d5fff;">🛰️ Configuració Avançada Minecraft</h2>
+            <hr style="border: 0.5px solid #333; margin: 15px 0;">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <label><b>Subdomini del servidor:</b></label><br>
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                        <input type="text" id="mc-subdomain" placeholder="el-meu-servidor" maxlength="30" style="padding: 10px; width: calc(80% - 5px); background: #000; color: #fff; border: 1px solid #444; border-radius: 5px;" 
+                               oninput="validarSubdomini(this)">
+                        <span id="subdomain-status" style="font-size: 1.2rem; display: none;">✅</span>
+                    </div>
+                    <span style="color: #888;">.xatarrahosting.cat</span>
+                    <p id="subdomain-error" style="color: #e74c3c; font-size: 0.85rem; margin-top: 5px; display: none;"></p>
+                    <p id="subdomain-info" style="color: #888; font-size: 0.85rem; margin-top: 5px;">Max 30 caràcters · Només lletres i números</p>
+                    <br>
+
+                    <label><b>Software / Motor:</b></label><br>
+                    <select id="mc-software" onchange="actualitzarVersions()" style="padding: 10px; width: 100%; background: #000; color: #fff; border: 1px solid #444; border-radius: 5px;">
+                        <option value="paper">PaperMC (Recomanat)</option>
+                        <option value="vanilla">Vanilla (Oficial)</option>
+                        <option value="forge">Forge (Mods)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label><b>Versió de Minecraft:</b></label><br>
+                    <select id="mc-version" style="padding: 10px; width: 100%; background: #000; color: #fff; border: 1px solid #444; border-radius: 5px;">
+                    </select>
+                </div>
+            </div>
+
+            <br>
+            <button id="btn-crear-servidor" onclick="enviarCreacio(event)" style="background: linear-gradient(45deg, #7d5fff, #b33771); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem;">
+                CREAR SERVIDOR
+            </button>
+            <button type="button" onclick="document.getElementById('setup-minecraft').style.display='none'" style="background:none; border:none; color:gray; cursor:pointer; width:100%; margin-top:10px;">Cancel·lar</button>
+        </div>
+
+	<div id="llista-servers" style="margin-top: 20px; display: grid; gap: 15px;">
+        <p id="msg-buit">Carregant els teus servidors...</p>
+    </div>
+ </div>
+    <!-- BOTÓ FLOTANT PER CREAR SERVIDOR SI NO EN TÉ CAP -->
+    <div id="fab-crear" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 900;">
+        <button onclick="document.getElementById('setup-minecraft').style.display='block'; document.getElementById('fab-crear').style.display='none';" 
+                style="background: linear-gradient(135deg, #7d5fff, #b33771); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(125,95,255,0.4); transition: 0.3s; display: flex; align-items: center; justify-content: center;"
+                onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 6px 20px rgba(125,95,255,0.6)'"
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(125,95,255,0.4)'"
+                title="Crear servidor Minecraft">
+            ➕
+        </button>
+    </div>
+</div> <script src="auth.js?v=999"></script>
+<script src="dashboard-logic.js?v=999"></script>
+</body>
+</html>

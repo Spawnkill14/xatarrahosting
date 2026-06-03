@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XatarraCloud | Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --terminal-green: #39ff14;
+            --error-red: #f85149;
+            --bg-dark: #090b10;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-cian: #00d2ff;
+            --accent-purple: #a371f7;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top right, rgba(163, 113, 247, 0.15), transparent),
+                              radial-gradient(circle at bottom left, rgba(0, 210, 255, 0.1), transparent);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px; /* Reduït */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Capçalera amb Navegació */
+        .header-nav {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        h1 { 
+            font-size: 1.4rem; 
+            margin: 0; 
+            color: var(--accent-color); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: var(--text-color);
+            background: #21262d;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid #30363d;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            background: #30363d;
+            border-color: var(--accent-color);
+        }
+
+        /* Dashboard més compacte */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border-bottom: 3px solid var(--accent-color); /* Canviat a sota per ser més fi */
+            text-align: center;
+        }
+
+        .card h3 { margin: 0; font-size: 0.8rem; opacity: 0.7; }
+        .card .value { font-size: 1.5rem; font-weight: bold; margin: 5px 0; color: #fff; }
+
+        /* Contenidor del Gràfic */
+        #chart-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 350px; /* <--- AFEGEIX AIXÒ */
+	    background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Terminal de LOGS compacta */
+        .log-section { width: 100%; max-width: 1000px; }
+        .log-section h2 { font-size: 1rem; margin-bottom: 10px; }
+
+        .log-container {
+            background: #000;
+            color: var(--terminal-green);
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            height: 160px; /* Més baixet */
+            overflow-y: auto;
+            font-size: 0.85rem;
+            border: 1px solid #30363d;
+        }
+
+        .log-entry { margin-bottom: 4px; border-bottom: 1px solid #111; }
+        .log-time { color: #666; margin-right: 8px; }
+
+        .status-tag {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            vertical-align: middle;
+        }
+        .online { background: #238636; }
+        .offline { background: var(--error-red); }
+
+        /* Estilos para navegación */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 8%;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(9, 11, 16,);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
+
+        .logo { 
+            font-weight: 800; 
+            letter-spacing: -0.5px; 
+            font-size: 1.2rem; 
+            color: var(--text-main); 
+        }
+
+        .logo span { 
+            color: var(--accent-cian); 
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { 
+            color: var(--text-main); 
+        }
+
+        .nav-right-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .glass-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); }
+
+        .glass-card {
+            background: rgba(17, 25, 40, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .session-card {
+            min-width: 200px;
+        }
+
+        .session-card h3 {
+            margin: 0 0 5px 0;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .session-card .user-name {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .btn-logout, .btn-dashboard {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-logout:hover, .btn-dashboard:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-dashboard {
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="">
+        <!-- Logo de la aplicación -->
+        <div class="logo">XATARRA<span style="color: #00d2ff;">HOSTING</span></div>
+    
+        <div class="nav-right-container">
+            <!-- Enlaces de navegación -->
+            <div class="nav-links" style="position: relative; height: 21px;">
+                <a href="index.html"><b>Inici</b></a>
+                <a href="serveis.html"><b>Serveis</b></a>
+                <a href="explorador.html"><b>Explorador</b></a>
+                <a href="statistic.html" style="color: #00d2ff; font-weight: bold;"><b>Estadístiques</b></a>
+                <a href="dashboard.html"><b>Dashboard</b></a>
+            </div>
+
+            <!-- Panel de sesión en la navegación (oculto por defecto) -->
+            <div id="session-panel" class="glass-card session-card session-card-nav" style="display: none;">
+                <span class="user-name"><b>Hola, </b><span id="display-user" style="color: #a371f7; font-weight: bold;"><b>Usuari</b></span></span>
+            </div>
+        </div>
+    </nav>
+
+        <div class="header-nav">
+        <h1>Server Master Status <span id="status" class="status-tag offline">OFFLINE</span></h1>
+        </div>
+
+    <div class="dashboard-grid">
+        <div class="card">
+            <h3>CPU</h3>
+            <span id="cpu-val" class="value">--%</span>
+        </div>
+        <div class="card">
+            <h3>RAM</h3>
+            <span id="ram-val" class="value">-- / -- MB</span>
+        </div>
+        <div class="card">
+    	     <h3>DISC</h3>
+    	     <span id="disk-usage">--%</span>
+	</div>
+        <div class="card">
+            <h3>LXC ACTIUS</h3>
+            <span id="lxc-val" class="value">--</span>
+        </div>
+    </div>
+
+    <div id="chart-container"> <canvas id="cpuChart"></canvas></div>
+
+    <div class="log-section">
+        <h2>📜 Activitat del Sistema</h2>
+        <div id="log-terminal" class="log-container">
+            <div class="log-entry">Connectant amb el Master 1...</div>
+        </div>
+    </div>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="auth.js"></script>
+    <script src="stats.js?v=999"></script>
+</body>
