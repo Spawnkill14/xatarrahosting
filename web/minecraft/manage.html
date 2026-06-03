@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestió del Servidor - XatarraCloud</title>
+    <link rel="stylesheet" href="manage.css">
+</head>
+<body>
+          <nav class="">
+    		<div class="logo">XATARRA<span style="color: #00d2ff;">HOSTING</span></div>
+    
+    		<div class="nav-right-container">
+        		<div class="nav-links" style="position: relative; height: 21px;">
+            		<a href="../index.html"><b>Inici</b></a>
+                    <a href="../serveis.html"><b>Serveis</b></a>
+                    <a href="../explorador.html"><b>Explorador</b></a>
+            		<a href="../statistic.html"><b>Estadístiques</b></a>
+            		<a href="../dashboard.html" style="color: #00d2ff; font-weight: bold;"><b>Dashboard</b></a>
+        		</div>
+
+        	<div id="session-panel" class="glass-card session-card session-card-nav" style="display: none; background: rgba(17, 25, 40, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 30px; transition: 0.3s;">
+            		<h3>Sessi  Activa</h3>
+            		<span class="user-name">Hola, <span id="display-user" style="color: #a371f7; font-weight: bold;">Usuari</span></span>
+        	</div>
+   	 </div>
+	</nav>
+    <div class="container" style="display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; padding: 20px;">
+        
+        <aside style="width: 250px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px;">
+            <h2 style="color: #36ce75;">XatarraCloud</h2>
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 15px; color: #36ce75;"><strong>💻 Consola</strong></li>
+                <li id="btn-fitxers" style="margin-bottom: 15px; cursor: pointer; transition: 0.3s;" onclick="openFileManager()">📁 Gestor de Fitxers</li>
+                <li style="cursor: pointer; opacity: 0.4; margin-bottom: 15px;">⚙️ Configuració</li>
+            </ul>
+            <br>
+            <button onclick="window.location.href='../dashboard.html'" style="width: 100%; padding: 10px; background: #333; color: white; border: none; border-radius: 6px; cursor: pointer;">⬅ Tornar al Panell</button>
+        </aside>
+
+        <main style="flex-grow: 1;">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h1 id="server-title" style="margin: 0;">Carregant...</h1>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button id="btn-iniciar" onclick="controlServer('start')" 
+                            style="background: #36ce75; color: #090b10; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        Iniciar
+                    </button>
+                    <button id="btn-reiniciar" onclick="controlServer('restart')" 
+                            style="background: #f1c40f; color: #090b10; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        Reiniciar
+                    </button>
+                    <button id="btn-aturar" onclick="controlServer('stop')" 
+                            style="background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        Aturar
+                    </button>
+                </div>
+            </div>
+
+            <div id="terminal" style="background: #000; color: #36ce75; font-family: 'Courier New', monospace; padding: 20px; border-radius: 10px; height: 450px; overflow-y: auto; font-size: 14px; line-height: 1.4; border: 1px solid #333;">
+                <div>[SISTEMA] Connectant amb la consola de XatarraCloud...</div>
+            </div>
+
+            <div style="margin-top: 15px; display: flex; gap: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                <input type="text" id="console-input" placeholder="Escriu una comanda (ex: op elvilax)..." 
+                       style="flex-grow: 1; padding: 12px; border: none; border-radius: 4px; background: #1a1d24; color: white; outline: none;">
+                <button onclick="sendCommand()" style="background: #36ce75; color: #090b10; border: none; padding: 0 25px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                    Enviar
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://api.xatarrahosting.cat/socket.io/socket.io.js"></script>
+    <script src="manage.js?=999"></script>
+    <script src="../auth.js?v=999"></script>
+</body>
+</html>
