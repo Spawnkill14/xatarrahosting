@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>Xatarra | Deploy Web</title>
+</head>
+<body class="deploy-page">
+    <div class="container">
+        <header class="deploy-header">
+            <h1 id="main-title">[ 🌐 ] DEPLOY_WEB</h1>
+            <p id="software-desc">// Preparant stack per a serveis web.</p>
+        </header>
+
+        <main class="console-box">
+            <div class="form-group">
+                <label>> SOFTWARE_A_INSTAL·LAR:</label>
+                <input type="text" id="soft-display" readonly style="background:transparent; border:none; color:var(--radioactive);">
+            </div>
+            <div class="form-group">
+                <label>> DOMINI_DE_DESTÍ:</label>
+                <input type="text" id="domain" placeholder="elteunom.xatarra.site">
+            </div>
+            <div class="form-group">
+                <label>> PASSWORD_ADMIN:</label>
+                <input type="password" id="adminpass" placeholder="********">
+            </div>
+            
+            <div class="actions">
+                <button onclick="executarDeploy()" class="btn-deploy">INICIAR_INSTAL·LACIÓ</button>
+                <a href="../index.html" class="btn-back">AVORTAR</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const soft = params.get('soft') || 'wordpress';
+        
+        document.getElementById('soft-display').value = soft.toUpperCase();
+        document.getElementById('main-title').innerText = `[ 🌐 ] DEPLOY_${soft.toUpperCase()}`;
+
+        function executarDeploy() {
+            const domain = document.getElementById('domain').value;
+            if(!domain) return alert("Error: El domini és obligatori.");
+            
+            // Aquí la petició va a l'API de la .151
+            alert(`Connectant amb l'API... Desplegant ${soft} a ${domain}`);
+            window.location.href = '../dashboard.html';
+        }
+    </script>
+</body>
+</html>

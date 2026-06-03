@@ -1,0 +1,319 @@
+/* ============================================================
+   Modern responsive stylesheet for XatarraCloud
+   Clean, neutral palette and readable type
+   ============================================================ */
+
+/* Variables CSS globales para colores y diseño */
+:root{
+  --bg:#0b0f17;
+  --card:#0f1724;
+  --muted:#98a0b3;
+  --accent:#4fd1c5; /* teal */
+  --accent-2:#7c5cff; /* purple */
+  --accent-cian:#00d2ff;
+  --border-color:rgba(255,255,255,0.1);
+  --text-main:#ffffff;
+  --text-dim:#94a3b8;
+  --card-bg:rgba(17,25,40,0.75);
+  --radioactive:#22ff88;
+  --glass:rgba(255,255,255,0.04);
+  --radius:12px;
+  --maxw:1100px;
+  --mono: "Courier New", monospace;
+  --ui: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Reset y configuración básica */
+*{box-sizing:border-box}
+html,body{height:100%}
+
+/* Estilos para el cuerpo de la página */
+body{
+  margin:0;
+  font-family:var(--ui);
+  background:linear-gradient(180deg,var(--bg),#06101a);
+  color:#e6eef6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Contenedor principal */
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* Header / Nav */
+header.site-header{padding:28px 0}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .logo{font-weight:800;font-family:var(--mono);letter-spacing:1px}
+.brand .tag{color:var(--muted);font-size:0.95rem}
+
+.nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:12px 0}
+.nav .links{display:flex;gap:10px;align-items:center}
+.nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+.nav a:hover{background:var(--glass);color:#fff}
+.nav a.active{color: var(--accent-cian); font-weight: bold;}
+
+/* Hamburger / mobile menu */
+.hamburger{display:none;width:44px;height:38px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);align-items:center;justify-content:center;cursor:pointer}
+.hamburger .bar{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative}
+.hamburger .bar::before,.hamburger .bar::after{content:'';position:absolute;left:0;width:20px;height:2px;background:currentColor;border-radius:2px}
+.hamburger .bar::before{top:-6px}
+.hamburger .bar::after{top:6px}
+
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:linear-gradient(180deg,rgba(2,6,23,0.95),rgba(2,6,23,0.98));padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.03);z-index:1200}
+.mobile-menu a{display:block;padding:10px;border-radius:8px;color:#e6eef6}
+.mobile-menu a + a{margin-top:6px}
+
+.features-grid { width: 756px; height: 406px; }
+
+@media (max-width:900px){
+  .hamburger{display:flex}
+  .nav .links{display:none}
+}
+
+/* Compatibility: map old classes to new layout so menu doesn't break on legacy pages */
+.main-nav{background:transparent;padding:12px 0;border-bottom:0}
+.main-nav .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.main-nav .main-links{display:flex;gap:10px;align-items:center;justify-content:center}
+.main-nav .main-links a{color:var(--muted);padding:8px 12px;border-radius:8px;text-decoration:none}
+.main-nav .main-links a.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041423}
+.main-nav .main-links a:hover{background:var(--glass)}
+
+/* ensure legacy inline icons/text don't overflow */
+.main-nav .main-links a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 360px;gap:30px;align-items:center;padding:40px 0}
+.hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:30px;border-radius:var(--radius);box-shadow:0 6px 20px rgba(2,6,23,0.6);}
+.hero h1{margin:0;font-size:2.2rem;line-height:1.05}
+.hero p.lead{color:var(--muted);margin-top:10px}
+.cta-row{margin-top:20px;display:flex;gap:12px}
+.btn{display:inline-flex;gap:10px;align-items:center;padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041423}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+/* Cards grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:28px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.card h3{margin:0 0 8px 0}
+.muted{color:var(--muted)}
+
+/* Console / monitor look */
+.console{background:#000;padding:12px;border-radius:8px;color:#9ae6b4;font-family:var(--mono);font-size:0.95rem;border:1px solid rgba(0,0,0,0.6)}
+
+/* Login card (for login.html) */
+.auth-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:28px;border-radius:14px;max-width:520px;margin:auto;border:1px solid rgba(255,255,255,0.04)}
+.form-row{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+label{font-weight:600;color:var(--muted);font-size:0.95rem}
+input,select,textarea{background:#03141a;border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:8px;color:#e6eef6;font-family:var(--ui)}
+input:focus,select:focus{outline:2px solid rgba(124,92,255,0.12);border-color:rgba(124,92,255,0.25)}
+
+/* Footer */
+footer.site-footer{padding:36px 0;text-align:center;color:var(--muted);font-size:0.9rem}
+
+/* Utilities */
+.text-accent{color:var(--accent)}
+.small{font-size:0.9rem;color:var(--muted)}
+
+/* Responsive */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;}
+  .hero-card{order:2}
+}
+
+@media (max-width:520px){
+  .nav{flex-direction:column;align-items:flex-start}
+  .nav .links{flex-wrap:wrap}
+}
+
+/* subtle entrance */
+@keyframes fadeInPage{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+body{animation:fadeInPage .5s ease forwards}
+
+@media (min-width: 481px) and (max-width: 769px) {
+  .features-grid { width: 612px; height: 406.25px; }
+}
+
+@media (max-width: 481px) {
+  .features-grid { width: 612px; height: 406.25px; }
+}
+/* NAVEGACIÓ ESTIL GLASS I STICKY */
+/* Estilos para la navegación con efecto glass y sticky */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 8%;
+    
+    /* EL MOVIMENT STICKY */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    
+    /* ESTIL VISUAL */
+    background: rgba(9, 11, 16,); /* Mateix fons que el body però amb opacitat */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    
+    box-sizing: border-box; /* Perquè el padding no ens eixampli el 100% */
+}
+
+.logo { 
+    /* Estilos para el logo */
+    font-weight: 800; 
+    letter-spacing: -0.5px; 
+    font-size: 1.2rem; 
+    color: var(--text-main); 
+}
+
+/* Això farà que la paraula HOSTING torni a ser blava */
+.logo span { 
+    /* Color especial para la parte "HOSTING" del logo */
+    color: var(--accent-cian); 
+}
+
+        .nav-links a {
+            /* Estilos para los enlaces de navegación */
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { 
+            /* Efecto hover para los enlaces */
+            color: var(--text-main); 
+        }
+	
+	/* Ajust per al nav perquè contingui la sessió a la dreta */
+	nav {
+   	/* Ajustes adicionales para la navegación */
+   	padding: 10px 5%; /* Una mica més estret per encabir-ho tot */
+	}
+
+	.nav-right-container {
+    	/* Contenedor para elementos de la derecha */
+    	display: flex;
+    	align-items: center;
+    	gap: 20px;
+	}
+
+	/* Versió compacta de la session-card per a la barra superior */
+	.session-card-nav {
+    	/* Versión compacta de la tarjeta de sesión para la barra */
+    	padding: 10px 20px !important;
+    	border-radius: 15px !important;
+    	margin: 0 !important;
+    	text-align: left !important;
+    	font-size: 0.8rem;
+	}
+
+	.session-card-nav h3 {
+    	/* Ocultar título en versión compacta */
+    	display: none; /* Amaguem el títol "Sessió Activa" per guanyar espai */
+	}
+
+	.session-card-nav .user-name {
+    	/* Estilos para el nombre de usuario en compacto */
+    	font-size: 0.9rem !important;
+    	margin-bottom: 5px !important;
+	}
+
+	.session-card-nav .btn {
+   	 /* Estilos para botones en compacto */
+   	 padding: 5px 12px !important;
+    	font-size: 0.75rem !important;
+   	 border-radius: 8px !important;
+	}
+    /* BOTONS AMB DEGRADAT */
+        .btn {
+            /* Estilos base para botones */
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-purple {
+            /* Botones púrpura con degradado */
+            background: linear-gradient(135deg, #6d28d9, #a371f7);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-outline {
+            /* Botones outline */
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid var(--border-color);
+            margin-left: 10px;
+        }
+
+        .btn-outline:hover { 
+            /* Hover para outline */
+            background: rgba(255,255,255,0.1); 
+        }
+
+        /* CARDS ESTIL GLASSMORPHISM */
+        .glass-card {
+            /* Tarjetas con efecto glassmorphism */
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            transition: 0.3s;
+        }
+
+        .glass-card:hover { 
+            /* Hover para tarjetas glass */
+            border-color: rgba(255,255,255,0.2); 
+            transform: translateY(-5px); 
+        }
+
+        /* INFO DE SESSIÓ (CARD DRETA) */
+        .session-card {
+            /* Tarjeta de información de sesión */
+            height: fit-content;
+            text-align: center;
+        }
+
+        .session-card h3 { 
+            /* Título de la tarjeta de sesión */
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            color: var(--text-dim); 
+            margin-bottom: 15px; 
+        }
+        .session-card .user-name { 
+            /* Nombre de usuario en la tarjeta */
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            margin-bottom: 20px; 
+            display: block; 
+        }/* Página específica: web/wordpress.html */
+:root {
+  --bg-dark:#090b10;
+  --card-bg:rgba(17,25,40,0.75);
+  --border-color:rgba(255,255,255,0.1);
+  --accent:#4fd1c5;
+  --accent-cian:#00d2ff;
+  --text-main:#ffffff;
+  --text-dim:#94a3b8;
+}
+
+.deploy-box { max-width: 600px; margin: 40px auto; background: #111827; padding: 30px; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.form-group { margin-bottom: 20px; text-align: left; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--accent); }
+form input, .form-group input { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; background: rgba(255,255,255,0.05); color: #fff; }
+.btn-deploy { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 24px; border-radius: 12px; background: linear-gradient(135deg, #6d28d9, #a371f7); color: #fff; border: none; cursor: pointer; transition: 0.25s; }
+.btn-deploy:hover { opacity: 0.92; }
+.btn-back { display: inline-block; margin-top: 20px; color: #888; text-decoration: none; }

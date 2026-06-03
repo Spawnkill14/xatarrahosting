@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Xatarra | Deploy WordPress</title>
+    <link rel="stylesheet" href="wordpress.css">
+    
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container">
+            <div class="main-links">
+                <a href="../index.html">🏠 HOME</a>
+                <a href="../serveis.html" class="active">⚙️ SERVEIS</a>
+                <a href="../explorador.html">🔍 EXPLORADOR</a>
+                <a href="../dashboard.html">🖥️ DASHBOARD</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="text-align: center;">
+        <div class="deploy-box">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">🌐</div>
+            <h2 style="color: var(--accent);">INSTAL·LAR WORDPRESS</h2>
+            <p style="color: #666;">Stack: Nginx + PHP 8.2 + MariaDB</p>
+
+            <div class="form-group">
+                <label>Nom del Projecte:</label>
+                <input type="text" id="wp_name" placeholder="ElMeuBlog">
+            </div>
+
+            <div class="form-group">
+                <label>Usuari Administrador:</label>
+                <input type="text" id="wp_user" value="admin">
+            </div>
+
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="is_public" style="width:20px;"> Fer la web pública (.xatarra.site)
+                </label>
+            </div>
+
+            <button class="btn-deploy" onclick="crearWeb('wordpress')">DESPLEGAR ARA 🚀</button>
+            <br><br>
+            <a href="../serveis.html" style="color: #888; text-decoration: none;"><- Tornar</a>
+        </div>
+    </div>
+
+    <script>
+        async function crearWeb(tipus) {
+            const dades = {
+                name: document.getElementById('wp_name').value,
+                admin: document.getElementById('wp_user').value,
+                is_public: document.getElementById('is_public').checked,
+                type: tipus
+            };
+
+            const res = await fetch('http://192.168.1.151:3000/api/deploy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dades)
+            });
+
+            if (res.ok) {
+                alert("Instal·lant WordPress al Proxmox...");
+                window.location.href = "../dashboard.html";
+            }
+        }
+    </script>
+</body>
+</html>
