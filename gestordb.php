@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "mhmk", "11252008", "xatarracloud");
+$conn = new mysqli("localhost", "mhmk", "Password", "xatarracloud");
 
 // Lògica per Eliminar
 if (isset($_GET['delete'])) {
